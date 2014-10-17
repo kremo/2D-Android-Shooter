@@ -20,6 +20,8 @@ public class DemoGame implements ApplicationListener {
     AnimatedSprite movingShip;
     private Viewport viewport;
     private Camera camera;
+    AnimatedSprite SpaceAmmo;
+    Sprite Ammo;
     private static final int VIRTUAL_WIDTH = 420;
     private static final int VIRTUAL_HEIGHT = 800;
 
@@ -32,10 +34,16 @@ public class DemoGame implements ApplicationListener {
        // camera.setToOrtho(false,800,480);
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("Background.png"));
-        Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
-        spaceship = new Sprite(SpaceShipTexture);  //TEXTURE > SPRITE
-        spaceship.setPosition(800/2 - (spaceship.getWidth()/2),0);
-        this.movingShip = new AnimatedSprite(spaceship);
+       // Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
+        //spaceship = new Sprite(SpaceShipTexture);  //TEXTURE > SPRITE
+        //spaceship.setPosition(800/2 - (spaceship.getWidth()/2),0);
+        //movingShip = new AnimatedSprite(spaceship);
+
+        Texture AmmoSprite = new Texture(Gdx.files.internal("SpaceAmmo.png"));
+        Ammo = new Sprite(AmmoSprite);
+        Ammo.setPosition(800/2-(Ammo.getWidth()/2),0);
+        SpaceAmmo = new AnimatedSprite(Ammo);
+
 
 	}
 
@@ -53,9 +61,11 @@ public class DemoGame implements ApplicationListener {
        batch.draw(background,0,0);
 
         //spaceship.draw(batch);
-        movingShip.draw(batch);
+       // movingShip.draw(batch);
+        SpaceAmmo.draw(batch);
         handleinput();
-        movingShip.move();
+        SpaceAmmo.move();
+       // movingShip.move();
 
 
         batch.end();
@@ -65,12 +75,14 @@ public class DemoGame implements ApplicationListener {
         if (Gdx.input.isTouched()) {
             int touchX = Gdx.input.getX();
             System.out.println(touchX);
-            if( touchX > movingShip.getX()){
-               movingShip.moveRight();
+            if( touchX > SpaceAmmo.getX()){
+               //movingShip.moveRight();
+                SpaceAmmo.moveRight();
             }
             else
             {
-                movingShip.moveLeft();
+              //  movingShip.moveLeft();
+                SpaceAmmo.moveLeft();
             }
         }
     }
