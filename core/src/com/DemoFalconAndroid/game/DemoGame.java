@@ -17,7 +17,7 @@ public class DemoGame implements ApplicationListener {
 	SpriteBatch batch;
     private Texture background;
     private Sprite spaceship;
-    AnimatedSprite movingShip;
+   private AnimatedSprite movingShip;
     private Viewport viewport;
     private Camera camera;
     AnimatedSprite SpaceAmmo;
@@ -34,16 +34,18 @@ public class DemoGame implements ApplicationListener {
        // camera.setToOrtho(false,800,480);
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("Background.png"));
-       // Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
-        //spaceship = new Sprite(SpaceShipTexture);  //TEXTURE > SPRITE
-        //spaceship.setPosition(800/2 - (spaceship.getWidth()/2),0);
-        //movingShip = new AnimatedSprite(spaceship);
+       Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
+        spaceship = new Sprite(SpaceShipTexture);  //TEXTURE > SPRITE
+        spaceship.setPosition(800/2 - (spaceship.getWidth()/2),0);
+        movingShip = new AnimatedSprite(spaceship);
 
+     /*
+     Disabled Ammo Sprite
         Texture AmmoSprite = new Texture(Gdx.files.internal("SpaceAmmo.png"));
         Ammo = new Sprite(AmmoSprite);
         Ammo.setPosition(800/2-(Ammo.getWidth()/2),0);
         SpaceAmmo = new AnimatedSprite(Ammo);
-
+      */
 
 	}
 
