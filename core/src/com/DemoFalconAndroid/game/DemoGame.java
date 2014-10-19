@@ -29,7 +29,7 @@ public class DemoGame implements ApplicationListener {
         camera = new PerspectiveCamera();
         viewport = new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
         // OrthographicCamera camera = new OrthographicCamera(); //Having to Declare Camera type before new.
-        // camera.setToOrtho(false,800,480); Default Camera settings
+        // camera.setToOrtho(false,800,480); Default Camera settings + Size
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("Background.png"));
         Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
