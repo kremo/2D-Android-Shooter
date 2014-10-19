@@ -87,4 +87,8 @@ public class AnimatedSprite {
     public void setVelocity(Vector2 velocity) {
         this.velocity = velocity;
     }
+
+    public int getY() {
+        return (int)(sprite.getY());
+    }
 }

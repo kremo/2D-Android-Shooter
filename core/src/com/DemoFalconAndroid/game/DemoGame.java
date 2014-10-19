@@ -2,12 +2,14 @@ package com.DemoFalconAndroid.game;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -22,6 +24,8 @@ public class DemoGame implements ApplicationListener {
     private Viewport viewport;
     private Camera camera;
     private ShotManager shotManager;
+    private Music gameMusic;
+    private Enemy enemy;
 
     @Override
     public void create() {
@@ -41,14 +45,14 @@ public class DemoGame implements ApplicationListener {
         Texture ammoTexture = new Texture(Gdx.files.internal("SpaceAmmo.png"));
         shotManager = new ShotManager(ammoTexture);
 
-
-     /*
-     Disabled Ammo Sprite
-        Texture AmmoSprite = new Texture(Gdx.files.internal("SpaceAmmo.png"));
-        Ammo = new Sprite(AmmoSprite);
-        Ammo.setPosition(800/2-(Ammo.getWidth()/2),0);
-        SpaceAmmo = new AnimatedSprite(Ammo);
-      */
+        Texture enemyTexutre = new Texture(Gdx.files.internal("enemyShip.png"));
+        /*
+       Music Manager, Files, Volumes
+             */
+        gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Battle.mp3"));
+        gameMusic.setVolume(.25f); //Figure out what the F Means
+        gameMusic.setLooping(true);
+        gameMusic.play();
 
     }
 
@@ -71,7 +75,6 @@ public class DemoGame implements ApplicationListener {
         batch.end();
 
         handleinput();
-
         movingShip.move();
         shotManager.update();
 
