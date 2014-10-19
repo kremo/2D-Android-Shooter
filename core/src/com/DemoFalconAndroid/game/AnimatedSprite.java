@@ -1,7 +1,7 @@
 package com.DemoFalconAndroid.game;
 
 /**
- * Created by Adam on 10/12/2014.
+ * Controls Sprite Movement
  */
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.math.Vector2;
 
 public class AnimatedSprite {
@@ -69,7 +68,8 @@ public class AnimatedSprite {
     }
     public void move(){
         int xMovement = (int) (velocity.x * Gdx.graphics.getDeltaTime());
-        sprite.setPosition(sprite.getX()+xMovement,0);
+        int yMovement = (int) (velocity.y * Gdx.graphics.getDeltaTime());
+        sprite.setPosition(sprite.getX() + xMovement, sprite.getY() + yMovement);
         if(sprite.getX() < 0){
             sprite.setX(0);
             velocity.x = 0;
@@ -84,4 +84,7 @@ public class AnimatedSprite {
         }
     }
 
+    public void setVelocity(Vector2 velocity) {
+        this.velocity = velocity;
+    }
 }
