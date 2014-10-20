@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -26,6 +27,11 @@ public class DemoGame implements ApplicationListener {
     private ShotManager shotManager;
     private Music gameMusic;
     private Enemy enemy;
+    private Sprite EnemyShip;
+    private CollisionManager collisionManager;
+    private boolean isGameOver = false;
+    public int playerScore;
+    private PlayerScore totalScore;
 
     @Override
     public void create() {
@@ -36,6 +42,7 @@ public class DemoGame implements ApplicationListener {
         // camera.setToOrtho(false,800,480); Default Camera settings + Size
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("Background.png"));
+
         Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
         spaceship = new Sprite(SpaceShipTexture);  //TEXTURE > SPRITE
         spaceship.setPosition(800 / 2 - (spaceship.getWidth() / 2), 0);
@@ -43,12 +50,19 @@ public class DemoGame implements ApplicationListener {
 
 
         Texture ammoTexture = new Texture(Gdx.files.internal("SpaceAmmo.png"));
-        shotManager = new ShotManager(ammoTexture);
+        Texture EnemyShotTexture = new Texture(Gdx.files.internal("Enemy_Shooting_Sprite.png"));
+        shotManager = new ShotManager(ammoTexture,EnemyShotTexture);
 
-        Texture enemyTexutre = new Texture(Gdx.files.internal("enemyShip.png"));
+        Texture enemyTexture = new Texture(Gdx.files.internal("enemy_sprite.png"));
+        enemy = new Enemy(enemyTexture, shotManager);
+
+
+        collisionManager = new CollisionManager(movingShip, enemy, shotManager);
+
         /*
        Music Manager, Files, Volumes
              */
+
         gameMusic = Gdx.audio.newMusic(Gdx.files.internal("Battle.mp3"));
         gameMusic.setVolume(.25f); //Figure out what the F Means
         gameMusic.setLooping(true);
@@ -68,21 +82,47 @@ public class DemoGame implements ApplicationListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
         batch.draw(background, 0, 0);
+        BitmapFont scoreFont = new BitmapFont();
+        scoreFont.setScale(2);
+        scoreFont.draw(batch,"SCORE: "+PlayerScore.getPlayerScore(),0,Gdx.graphics.getHeight()-40);
+
+
+        if(isGameOver){
+            BitmapFont font = new BitmapFont();
+            font.setScale(2);
+            font.draw(batch,"YOU GOT HIT",Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/2);
+        }
 
         spaceship.draw(batch);
         movingShip.draw(batch);
         shotManager.draw(batch);
+        enemy.draw(batch);
         batch.end();
 
         handleinput();
-        movingShip.move();
-        shotManager.update();
+
+        if(!isGameOver)
+        {
+            movingShip.move();
+            shotManager.update();
+            enemy.update();
+            collisionManager.handleCollisions();
+        }
 
 
+        if(movingShip.isDead()){
+            isGameOver = true;
+        }
+
+    //5269
     }
 
     private void handleinput() {
         if (Gdx.input.isTouched()) {
+            if(isGameOver){
+                movingShip.setDead(false);
+                isGameOver = false;
+            }
             int touchX = Gdx.input.getX();
             System.out.println(touchX);
             if (touchX > movingShip.getX()) {
@@ -109,6 +149,11 @@ public class DemoGame implements ApplicationListener {
     @Override
     public void dispose() {
 
+    }
+    public static int addPlayerScore(){
+        int totalScore =0;
+        totalScore=+ 100;
+        return totalScore;
     }
 
 }

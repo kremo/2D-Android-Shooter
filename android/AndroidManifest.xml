@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.DemoFalconAndroid.game.android"
           android:versionCode="1"
-          android:versionName="0.01.7">
+          android:versionName="Alpha 0.1.0">
 
-    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="21"/>
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="20"/>
 
     <application
             android:allowBackup="true"

@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Rectangle;
+
+import java.awt.*;
 
 public class AnimatedSprite {
     private static final int FRAMES_COL = 2;
@@ -21,8 +24,10 @@ public class AnimatedSprite {
     private TextureRegion currentFrame;
     private Vector2 velocity = new Vector2();
     private static final int Ship_Speed = 300;
+    private float spawnTimeOut;
 
     private float stateTime;
+    private boolean isDead = false;
 
     public AnimatedSprite(Sprite sprite){
         this.sprite = sprite;
@@ -72,11 +77,11 @@ public class AnimatedSprite {
         sprite.setPosition(sprite.getX() + xMovement, sprite.getY() + yMovement);
         if(sprite.getX() < 0){
             sprite.setX(0);
-            velocity.x = 0;
+            //velocity.x = 0;
         }
         if(sprite.getX()+getSpriteWidth() > Gdx.graphics.getWidth()){
             sprite.setX(Gdx.graphics.getWidth()-sprite.getWidth());
-            velocity.x=0;
+            //velocity.x=0;
             /*Using GDX.Grpahics.GetWidth; Sets the Width to the Screen of the Device
             One of the issues I'm running into is simply getting the 800x420 Game to
             Stretch to the Device instead of just becoming massively bigger/Smaller;
@@ -90,5 +95,29 @@ public class AnimatedSprite {
 
     public int getY() {
         return (int)(sprite.getY());
+    }
+
+    public int getWidth(){
+        return (int) (sprite.getWidth()/2);
+    }
+
+    public int getHeight() {
+        return (int) (sprite.getHeight()/FRAMES_ROW);
+    }
+
+    public void changeDirection() {
+        velocity.x = -velocity.x;
+    }
+
+   public Rectangle getBoundingBox(){
+      return new Rectangle(sprite.getX(),sprite.getY(),getWidth(),getHeight());
+   }
+
+    public void setDead(boolean isDead) {
+        this.isDead = isDead;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }
