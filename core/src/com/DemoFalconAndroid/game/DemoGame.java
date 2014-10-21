@@ -1,6 +1,7 @@
 package com.DemoFalconAndroid.game;
 
 import com.badlogic.gdx.ApplicationListener;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
@@ -15,7 +16,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
-public class DemoGame implements ApplicationListener {
+public class DemoGame extends Game{
     private static final int VIRTUAL_WIDTH = 420;
     private static final int VIRTUAL_HEIGHT = 800;
     SpriteBatch batch;
@@ -81,7 +82,17 @@ public class DemoGame implements ApplicationListener {
         // Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-        batch.draw(background, 0, 0);
+
+
+
+            batch.draw(background,0,0);
+            batch.draw(background,256,256);
+            batch.draw(background,256,0);
+            batch.draw(background,0,256);
+        //TODO FIGURE OUT HOW TO DRAW BACKGROUND ACROSS ENTIRE SCREEN, CURRENT IDEA: LOOP IT
+
+
+
         BitmapFont scoreFont = new BitmapFont();
         scoreFont.setScale(2);
         scoreFont.draw(batch,"SCORE: "+PlayerScore.getPlayerScore(),0,Gdx.graphics.getHeight()-40);
