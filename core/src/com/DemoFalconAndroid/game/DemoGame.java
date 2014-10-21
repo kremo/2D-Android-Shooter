@@ -33,6 +33,7 @@ public class DemoGame extends Game{
     private boolean isGameOver = false;
     public int playerScore;
     private PlayerScore totalScore;
+    private Sprite newBackground;
 
     @Override
     public void create() {
@@ -42,9 +43,14 @@ public class DemoGame extends Game{
         // OrthographicCamera camera = new OrthographicCamera(); //Having to Declare Camera type before new.
         // camera.setToOrtho(false,800,480); Default Camera settings + Size
         batch = new SpriteBatch();
-        background = new Texture(Gdx.files.internal("Background.png"));
+        background = new Texture(Gdx.files.internal("darkPurple.png"));
+        newBackground = new Sprite(background);
+        newBackground.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        newBackground.setSize(1f,
+                1f * newBackground.getHeight() / newBackground.getWidth() );
 
-        Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketship.png"));
+
+        Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketsprite.png"));
         spaceship = new Sprite(SpaceShipTexture);  //TEXTURE > SPRITE
         spaceship.setPosition(800 / 2 - (spaceship.getWidth() / 2), 0);
         movingShip = new AnimatedSprite(spaceship);
@@ -85,10 +91,12 @@ public class DemoGame extends Game{
 
 
 
-            batch.draw(background,0,0);
-            batch.draw(background,256,256);
-            batch.draw(background,256,0);
-            batch.draw(background,0,256);
+           // batch.draw(background,0,0);
+          //  batch.draw(background,256,256);
+            //batch.draw(background,256,0);
+            //batch.draw(background,0,256);
+            newBackground.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
+            batch.draw(newBackground,0,0);
         //TODO FIGURE OUT HOW TO DRAW BACKGROUND ACROSS ENTIRE SCREEN, CURRENT IDEA: LOOP IT
 
 
@@ -104,7 +112,8 @@ public class DemoGame extends Game{
             font.draw(batch,"YOU GOT HIT",Gdx.graphics.getWidth()/4,Gdx.graphics.getHeight()/2);
         }
 
-        spaceship.draw(batch);
+       // spaceship.draw(batch);
+
         movingShip.draw(batch);
         shotManager.draw(batch);
         enemy.draw(batch);
