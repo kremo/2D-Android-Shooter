@@ -52,28 +52,34 @@ public class ShotManager {
     }
 
     public void update() {
-        //TODO: What is an Iterartor call and using it properly;
-        Iterator<AnimatedSprite> i =  shots.iterator();
 
+
+        //Player Ammo shot is cleared
+        Iterator<AnimatedSprite> i =  shots.iterator();
         while(i.hasNext()){
             AnimatedSprite shot = i.next();
             shot.move();
             if(shot.getY() > Gdx.graphics.getHeight()){
+
             i.remove();
             }
+
         }
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
 
-        Iterator<AnimatedSprite> j =  EnemyShots.iterator();
 
-        while(j.hasNext()){
-            AnimatedSprite shot = j.next();
+        Iterator<AnimatedSprite> e =  EnemyShots.iterator();
+
+        while(e.hasNext()){
+            AnimatedSprite shot = e.next();
             shot.move();
-            if(shot.getY() < 0){
-                j.remove();
+            if(shot.getY() <= -1){
+                e.remove();
             }
+
         }
         timeSinceLastShot += Gdx.graphics.getDeltaTime();
+
 
 
 

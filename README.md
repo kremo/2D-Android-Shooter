@@ -1,11 +1,22 @@
+
 Android Shooter Demo
 ===============
+ 
+
+
+
 Adam Falcon 10/19/14
 
 A Simple Shooting Android Game; In order to familiarize myself with LibGDX and Android Dev/Game Dev;
 
 Change log
 
+0.1.2
+-Logs are updated to New Relic
+-
+
+
+0.1.1
 -Fixed a bug that was causing two rocketships to be drawn ontop of each other.
 -Updated Graphics! New Player Ship, Enemies, Background has been updated for all device sizes (Hopefully)
 

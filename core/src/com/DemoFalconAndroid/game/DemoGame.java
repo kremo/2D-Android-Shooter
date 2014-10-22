@@ -16,6 +16,8 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 
+
+
 public class DemoGame extends Game{
     private static final int VIRTUAL_WIDTH = 420;
     private static final int VIRTUAL_HEIGHT = 800;
@@ -35,19 +37,28 @@ public class DemoGame extends Game{
     private PlayerScore totalScore;
     private Sprite newBackground;
 
+
     @Override
+
     public void create() {
+
+
+
 
         camera = new PerspectiveCamera();
         viewport = new StretchViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
         // OrthographicCamera camera = new OrthographicCamera(); //Having to Declare Camera type before new.
         // camera.setToOrtho(false,800,480); Default Camera settings + Size
         batch = new SpriteBatch();
+
+
         background = new Texture(Gdx.files.internal("darkPurple.png"));
         newBackground = new Sprite(background);
         newBackground.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         newBackground.setSize(1f,
-                1f * newBackground.getHeight() / newBackground.getWidth() );
+                1f * newBackground.getHeight() / newBackground.getWidth());
+
+        Ammo playerAmmo = new Ammo(background);
 
 
         Texture SpaceShipTexture = new Texture(Gdx.files.internal("rocketsprite.png"));
@@ -88,17 +99,9 @@ public class DemoGame extends Game{
         // Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.begin();
-
-
-
-           // batch.draw(background,0,0);
-          //  batch.draw(background,256,256);
-            //batch.draw(background,256,0);
-            //batch.draw(background,0,256);
             newBackground.setSize(Gdx.graphics.getWidth()/2,Gdx.graphics.getHeight()/2);
             batch.draw(newBackground,0,0);
         //TODO FIGURE OUT HOW TO DRAW BACKGROUND ACROSS ENTIRE SCREEN, CURRENT IDEA: LOOP IT
-
 
 
         BitmapFont scoreFont = new BitmapFont();
@@ -140,11 +143,12 @@ public class DemoGame extends Game{
     private void handleinput() {
         if (Gdx.input.isTouched()) {
             if(isGameOver){
+                dispose();
                 movingShip.setDead(false);
                 isGameOver = false;
             }
             int touchX = Gdx.input.getX();
-            System.out.println(touchX);
+
             if (touchX > movingShip.getX()) {
                 movingShip.moveRight();
 
@@ -153,6 +157,7 @@ public class DemoGame extends Game{
 
             }
             shotManager.firePlayerShot(movingShip.getX());
+            shotManager.update();
         }
     }
 

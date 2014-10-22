@@ -97,6 +97,36 @@ eclipse {
     }
 }
 
+
+//New Relic Build Script
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath "com.newrelic.agent.android:agent-gradle-plugin:4.+"
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'android'
+apply plugin: 'newrelic'
+
+repositories {
+    maven {
+        url "https://mint.splunk.com/gradle/"
+    }
+}
+
+dependencies {
+    compile 'com.newrelic.agent.android:android-agent:4.+'
+    compile "com.splunk.mint:mint:4.0.3"
+}
+
 // sets up the Android Idea project, using the old Ant based build.
 idea {
     module {
