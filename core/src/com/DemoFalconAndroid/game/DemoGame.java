@@ -36,13 +36,13 @@ public class DemoGame extends Game{
     public int playerScore;
     private PlayerScore totalScore;
     private Sprite newBackground;
-
+    private Player mainPlayer;
+    private static final String gameName = "Jay Shooter";
 
     @Override
-
     public void create() {
 
-
+        setScreen(new Splash());
 
 
         camera = new PerspectiveCamera();
